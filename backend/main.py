@@ -16,7 +16,7 @@ app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 # CORS Security (Only allow your Render frontend to talk to this backend)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://your-dealpilot-frontend.onrender.com", "http://127.0.0.1:5500"],
+    allow_origins=["https://dealpilot-31p0.onrender.com", "http://127.0.0.1:5500"],
     allow_credentials=True,
     allow_methods=["GET"],
     allow_headers=["*"],
