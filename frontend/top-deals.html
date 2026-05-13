@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Today's Top Deals | DealPilot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-body: #f8fafc; --bg-surface: #ffffff; --text-primary: #0f172a;
+            --text-secondary: #475569; --text-tertiary: #94a3b8; --accent-primary: #6366f1;
+            --accent-hover: #4f46e5; --success: #10b981; --danger: #ef4444;
+            --border-light: #e2e8f0; --border-focus: #cbd5e1; --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1); --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1); --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.2);
+            --radius-md: 12px; --radius-lg: 16px; --radius-pill: 9999px;
+            --transition-smooth: all 0.3s ease;
+            --plat-amazon: #ff9900; --plat-walmart: #0071ce; --plat-bestbuy: #0046be;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        body { background-color: var(--bg-body); color: var(--text-primary); line-height: 1.5; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; } 
+        button { border: none; background: none; cursor: pointer; font-family: inherit;}
+
+        /* Navbar */
+        .navbar { position: sticky; top: 0; z-index: 100; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-light); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; }
+        .brand { font-size: 1.5rem; font-weight: 800; color: var(--text-primary); display: flex; align-items: center; gap: 0.5rem; letter-spacing: -0.02em; } 
+        .brand i { color: var(--accent-primary); }
+        .nav-links { display: flex; gap: 2rem; align-items: center;} 
+        .nav-link { font-weight: 500; color: var(--text-secondary); font-size: 0.95rem; transition: var(--transition-smooth); } 
+        .nav-link:hover, .nav-link.active { color: var(--text-primary); font-weight: 700;}
+        .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+        .wishlist-icon-btn { font-size: 1.2rem; color: var(--text-secondary); transition: var(--transition-smooth); position: relative; display: flex; align-items: center;} 
+        .wishlist-icon-btn:hover { color: var(--danger); transform: scale(1.1); }
+        .cta-nav { background: var(--text-primary); color: white; padding: 0.6rem 1.25rem; border-radius: var(--radius-pill); font-weight: 600; font-size: 0.9rem; transition: var(--transition-smooth); box-shadow: var(--shadow-sm); } 
+        .cta-nav:hover { background: var(--accent-primary); box-shadow: var(--shadow-glow); }
+
+        /* Page specific */
+        .page-header { text-align: center; padding: 4rem 5% 2rem; }
+        .urgency-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(239, 68, 68, 0.1); color: var(--danger); padding: 0.5rem 1rem; border-radius: var(--radius-pill); font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
+        .page-header h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; letter-spacing: -0.02em; }
+        .section-title { max-width: 1200px; margin: 2rem auto 1.5rem; padding: 0 5%; font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; }
+        
+        /* Premium Cards */
+        .deals-grid { max-width: 1200px; margin: 0 auto 4rem; padding: 0 5%; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; flex: 1;}
+        .deal-card { background: var(--bg-surface); border-radius: var(--radius-lg); border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); transition: var(--transition-smooth); position: relative; display: flex; flex-direction: column; overflow: hidden; }
+        .deal-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-xl); border-color: var(--border-focus); }
+        .card-badge { position: absolute; top: 1rem; left: 1rem; background: var(--danger); color: white; padding: 0.35rem 0.75rem; border-radius: var(--radius-pill); font-size: 0.75rem; font-weight: 700; z-index: 10; display: flex; align-items: center; gap: 0.35rem; }
+        .wishlist-btn { position: absolute; top: 1rem; right: 1rem; width: 36px; height: 36px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--border-focus); font-size: 1.1rem; box-shadow: var(--shadow-md); z-index: 10; transition: var(--transition-smooth); }
+        .wishlist-btn:hover { color: var(--danger); transform: scale(1.1); }
+        .card-img-wrapper { width: 100%; height: 220px; padding: 2rem; background: var(--bg-body); border-bottom: 1px solid var(--border-light); }
+        .card-img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+        .card-content { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+        .platform-logo { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .plat-amazon { color: var(--plat-amazon); } .plat-walmart { color: var(--plat-walmart); } .plat-bestbuy { color: var(--plat-bestbuy); }
+        .product-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; line-height: 1.4; color: var(--text-primary); }
+        .price-section { margin-top: auto; background: var(--bg-body); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
+        .price-row { display: flex; align-items: flex-end; gap: 0.75rem; margin-bottom: 0.5rem; }
+        .current-price { font-size: 1.75rem; font-weight: 800; line-height: 1; color: var(--text-primary);}
+        .original-price { font-size: 1rem; color: var(--text-tertiary); text-decoration: line-through; font-weight: 500; }
+        .comparison-bar-bg { height: 6px; background: var(--border-light); border-radius: 3px; overflow: hidden; }
+        .comparison-bar-fill { height: 100%; background: var(--success); width: 60%; }
+        .buy-btn { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 0.875rem; border-radius: var(--radius-pill); background: var(--text-primary); color: white; font-weight: 600; transition: var(--transition-smooth); font-size: 1rem;}
+        .buy-btn:hover { background: var(--accent-primary); box-shadow: var(--shadow-glow); }
+
+        /* Footer */
+        footer { background: var(--bg-surface); border-top: 1px solid var(--border-light); padding: 4rem 5% 2rem; margin-top: auto; }
+        .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr; gap: 4rem; margin-bottom: 3rem; }
+        .footer-brand p { color: var(--text-secondary); margin-top: 1rem; font-size: 0.95rem; max-width: 400px; }
+        .footer-links-group h4 { font-size: 1rem; color: var(--text-primary); margin-bottom: 1.5rem; }
+        .footer-links { display: flex; flex-direction: column; gap: 1rem; }
+        .footer-link { color: var(--text-secondary); font-size: 0.9rem; transition: var(--transition-smooth); width: fit-content; }
+        .footer-link:hover { color: var(--accent-primary); }
+        .footer-bottom { max-width: 1200px; margin: 0 auto; padding-top: 2rem; border-top: 1px solid var(--border-light); display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-tertiary); flex-wrap: wrap; gap: 1rem; }
+
+        /* Modal */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(4px); display: none; justify-content: center; align-items: center; z-index: 200; opacity: 0; transition: opacity 0.3s; }
+        .modal-overlay.active { display: flex; opacity: 1; }
+        .modal-box { background: var(--bg-surface); width: 90%; max-width: 600px; border-radius: var(--radius-lg); padding: 2.5rem; position: relative; box-shadow: var(--shadow-xl); transform: scale(0.95); transition: transform 0.3s; max-height: 85vh; overflow-y: auto; }
+        .modal-overlay.active .modal-box { transform: scale(1); }
+        .modal-close { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 1.5rem; color: var(--text-tertiary); transition: var(--transition-smooth); }
+        .modal-close:hover { color: var(--text-primary); }
+        .modal-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--text-primary); }
+        .modal-content { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; }
+        .modal-content h3 { color: var(--text-primary); margin: 1.5rem 0 0.5rem; font-size: 1.1rem; }
+        
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="brand"><i class="fa-solid fa-plane-departure"></i> DealPilot</a>
+        <div class="nav-links">
+            <a href="Categories.html" class="nav-link">Categories</a>
+            <a href="top-deals.html" class="nav-link active">Top Deals</a>
+            <a href="brands.html" class="nav-link">Brands</a>
+        </div>
+        <div class="nav-right">
+            <button class="wishlist-icon-btn"><i class="fa-regular fa-heart"></i></button>
+            <a href="top-deals.html" class="cta-nav">Best Deals</a>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="urgency-badge"><i class="fa-solid fa-fire"></i> Flash Deals Ending Soon</div>
+        <h1>Today's Top Deals</h1>
+        <p style="color:var(--text-secondary); font-size: 1.15rem;">Handpicked, verified, and updated in real-time. Don't miss out.</p>
+    </header>
+
+    <div class="section-title"><i class="fa-solid fa-bolt" style="color:var(--accent-primary);"></i> Editor's Picks</div>
+    
+    <main class="deals-grid">
+        <div class="deal-card">
+            <div class="card-badge"><i class="fa-solid fa-clock"></i> 48% OFF</div>
+            <button class="wishlist-btn"><i class="fa-solid fa-heart"></i></button>
+            <div class="card-img-wrapper"><img src="https://placehold.co/400x400/f8fafc/0f172a?text=Premium+Headphones" alt="Product" class="card-img"></div>
+            <div class="card-content">
+                <div class="platform-logo plat-amazon">Amazon</div>
+                <h3 class="product-title">Sony WH-1000XM5 Noise Canceling Headphones</h3>
+                <div class="price-section">
+                    <div class="price-row">
+                        <span class="current-price">$248.00</span>
+                        <span class="original-price">$398.00</span>
+                    </div>
+                    <div class="comparison-bar-bg"><div class="comparison-bar-fill" style="width: 48%;"></div></div>
+                    <div style="font-size:0.75rem; color:var(--success); margin-top:0.35rem; font-weight:600;">Save $150.00 instantly</div>
+                </div>
+                <a href="#" class="buy-btn">Buy Now <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </div>
+        </div>
+
+        <div class="deal-card">
+            <div class="card-badge" style="background:var(--success);"><i class="fa-solid fa-tag"></i> Lowest Price</div>
+            <button class="wishlist-btn"><i class="fa-solid fa-heart"></i></button>
+            <div class="card-img-wrapper"><img src="https://placehold.co/400x400/f8fafc/0f172a?text=4K+OLED+TV" alt="Product" class="card-img"></div>
+            <div class="card-content">
+                <div class="platform-logo plat-bestbuy">Best Buy</div>
+                <h3 class="product-title">LG 65" Class C3 Series OLED 4K Smart TV</h3>
+                <div class="price-section">
+                    <div class="price-row">
+                        <span class="current-price">$1,499.99</span>
+                        <span class="original-price">$2,099.99</span>
+                    </div>
+                    <div class="comparison-bar-bg"><div class="comparison-bar-fill" style="width: 35%;"></div></div>
+                    <div style="font-size:0.75rem; color:var(--success); margin-top:0.35rem; font-weight:600;">Save $600.00 instantly</div>
+                </div>
+                <a href="#" class="buy-btn">Buy Now <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </div>
+        </div>
+
+        <div class="deal-card">
+            <div class="card-badge"><i class="fa-solid fa-fire"></i> Best Seller</div>
+            <button class="wishlist-btn"><i class="fa-solid fa-heart"></i></button>
+            <div class="card-img-wrapper"><img src="https://placehold.co/400x400/f8fafc/0f172a?text=Smart+Watch" alt="Product" class="card-img"></div>
+            <div class="card-content">
+                <div class="platform-logo plat-walmart">Walmart</div>
+                <h3 class="product-title">Apple Watch Series 9 (GPS 45mm)</h3>
+                <div class="price-section">
+                    <div class="price-row">
+                        <span class="current-price">$329.00</span>
+                        <span class="original-price">$429.00</span>
+                    </div>
+                    <div class="comparison-bar-bg"><div class="comparison-bar-fill" style="width: 25%;"></div></div>
+                    <div style="font-size:0.75rem; color:var(--success); margin-top:0.35rem; font-weight:600;">Save $100.00 instantly</div>
+                </div>
+                <a href="#" class="buy-btn">Buy Now <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="brand"><i class="fa-solid fa-plane-departure"></i> DealPilot</div>
+                <p>Your global smart shopping companion. Compare prices across trusted platforms and discover the best deals before you buy.</p>
+            </div>
+            <div style="display: flex; gap: 4rem; flex-wrap: wrap;">
+                <div class="footer-links-group">
+                    <h4>Legal & Trust</h4>
+                    <div class="footer-links">
+                        <button class="footer-link" onclick="openModal('privacy')">Privacy Policy</button>
+                        <button class="footer-link" onclick="openModal('terms')">Terms & Conditions</button>
+                        <button class="footer-link" onclick="openModal('affiliate')">Affiliate Disclosure</button>
+                    </div>
+                </div>
+                <div class="footer-links-group">
+                    <h4>Support</h4>
+                    <div class="footer-links">
+                        <button class="footer-link" onclick="openModal('contact')">Contact Us</button>
+                        <span class="footer-link" style="cursor:default;"><i class="fa-solid fa-envelope"></i> click@asimdc.in</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>&copy; <span id="year">2026</span> DealPilot Global. All rights reserved.</div>
+            <div>Prices may vary by region and seller. Always verify before purchase.</div>
+        </div>
+    </footer>
+
+    <div class="modal-overlay" id="legalModal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h2 class="modal-title" id="modalTitle">Title</h2>
+            <div class="modal-content" id="modalContent"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('year').innerText = new Date().getFullYear();
+        const modalOverlay = document.getElementById('legalModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalContent = document.getElementById('modalContent');
+        
+        // Exact Legal Pages as Requested
+        const legalPages = {
+            privacy: { 
+                title: "Privacy Policy", 
+                html: "<h3>1. Data Collection</h3><p>DealPilot operates as a premium price comparison engine. We do not collect personally identifiable information unless explicitly provided by you (e.g., via contact forms). We use browser localStorage solely to save your recent searches for a better UX.</p><h3>2. Cookies</h3><p>When you click a deal, affiliate networks may place a cookie on your browser to track the referral. This does not grant us access to your personal payment data.</p>" 
+            },
+            terms: { 
+                title: "Terms & Conditions", 
+                html: "<h3>1. Service Nature</h3><p>DealPilot is a global shopping utility. We are not a retailer. We do not sell products, handle shipping, or manage returns.</p><h3>2. Price Accuracy</h3><p>While our engine tracks live prices, third-party platforms update dynamically. Prices, availability, and shipping costs may vary. Always verify on the final merchant page.</p>" 
+            },
+            affiliate: { 
+                title: "Affiliate Disclosure", 
+                html: "<h3>FTC Compliance & Transparency</h3><p>DealPilot is a participant in global affiliate programs, including the Amazon Services LLC Associates Program, eBay Partner Network, and Walmart Program.</p><p><strong>What this means:</strong> When you click on links to various merchants on this site and make a purchase, this can result in this site earning a commission. This comes at <strong>zero additional cost to you</strong>.</p>" 
+            },
+            contact: { 
+                title: "Contact DealPilot", 
+                html: "<p>For inquiries, partnerships, or support, please email:</p><br><div style='text-align:center; padding:1.5rem; background:var(--bg-body); border-radius:var(--radius-md); border:1px solid var(--border-light);'><a href='mailto:click@asimdc.in' style='font-weight:700; font-size:1.2rem; color:var(--accent-primary);'>click@asimdc.in</a></div>" 
+            }
+        };
+
+        function openModal(page) { 
+            const data = legalPages[page]; 
+            if(data) { 
+                modalTitle.innerText = data.title; 
+                modalContent.innerHTML = data.html; 
+                modalOverlay.classList.add('active'); 
+                document.body.style.overflow = 'hidden'; 
+            } 
+        }
+        function closeModal() { 
+            modalOverlay.classList.remove('active'); 
+            document.body.style.overflow = 'auto'; 
+        }
+        
+        modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modalOverlay.classList.contains('active')) closeModal(); });
+    </script>
+</body>
+</html>
