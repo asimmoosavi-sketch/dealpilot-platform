@@ -8,14 +8,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            /* Premium Color Palette */
             --bg-body: #f8fafc; 
             --bg-surface: #ffffff; 
             --text-primary: #0f172a; 
             --text-secondary: #475569; 
-            --primary-dark: #1e3a8a; /* Dark Blue Buttons */
+            --primary-dark: #1e3a8a; 
             --primary-hover: #1e40af; 
-            --accent-yellow: #fbbf24; /* Offers/Deals */
+            --accent-yellow: #fbbf24; 
             --accent-yellow-text: #b45309;
             --border-light: #e2e8f0; 
             --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
@@ -30,7 +29,6 @@
         a { text-decoration: none; color: inherit; }
         button { border: none; background: none; cursor: pointer; font-family: inherit; transition: var(--transition); }
 
-        /* Premium Header */
         .navbar { position: sticky; top: 0; z-index: 100; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border-light); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.03); }
         .brand { font-size: 1.5rem; font-weight: 800; color: var(--primary-dark); display: flex; align-items: center; gap: 0.5rem; letter-spacing: -0.5px;}
         .nav-links { display: flex; gap: 2.5rem; align-items: center; } 
@@ -39,10 +37,8 @@
         
         .nav-right { display: flex; align-items: center; gap: 2rem; }
         .wishlist-btn-header { position: relative; font-size: 1.4rem; color: var(--text-secondary); }
-        .wishlist-btn-header:hover { color: var(--primary-dark); transform: translateY(-2px); }
         .wishlist-badge { position: absolute; top: -5px; right: -8px; background: var(--accent-yellow); color: var(--text-primary); font-size: 0.7rem; font-weight: 800; height: 18px; min-width: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid white; }
 
-        /* Hero & Search */
         .hero { padding: 5rem 5% 4rem; text-align: center; max-width: 900px; margin: 0 auto; }
         .hero h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 1rem; color: var(--primary-dark); letter-spacing: -1px; line-height: 1.1; }
         .hero p { font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 3rem; }
@@ -53,16 +49,11 @@
         .search-icon { padding: 0 1.5rem; display: flex; align-items: center; color: var(--text-secondary); font-size: 1.2rem; }
         .search-input { flex: 1; border: none; outline: none; font-size: 1.1rem; color: var(--text-primary); width: 100%; }
         .search-btn { background: var(--primary-dark); color: white; padding: 1rem 2.5rem; border-radius: var(--radius-pill); font-weight: 600; font-size: 1.05rem; }
-        .search-btn:hover { background: var(--primary-hover); box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3); transform: translateY(-1px);}
 
-        /* Autocomplete Dropdown */
         .dropdown { position: absolute; top: calc(100% + 10px); left: 0; width: 100%; background: var(--bg-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); border: 1px solid var(--border-light); display: none; overflow: hidden; text-align: left; }
         .dropdown.active { display: block; animation: slideDown 0.2s ease-out; }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-        .dropdown-item { padding: 1rem 1.5rem; display: flex; align-items: center; gap: 1rem; cursor: pointer; border-bottom: 1px solid var(--border-light); font-weight: 500; }
-        .dropdown-item:hover { background: var(--bg-body); color: var(--primary-dark); }
+        .dropdown-item { padding: 1rem 1.5rem; display: flex; align-items: center; gap: 1rem; cursor: pointer; border-bottom: 1px solid var(--border-light); }
 
-        /* Main Content Grid */
         .main-content { max-width: 1200px; margin: 0 auto; padding: 2rem 5% 6rem; }
         .section-title { font-size: 1.75rem; font-weight: 800; color: var(--primary-dark); margin-bottom: 2rem; display: flex; align-items: center; gap: 0.5rem; }
         
@@ -70,38 +61,32 @@
         .deal-card { background: var(--bg-surface); border-radius: var(--radius-lg); border: 1px solid var(--border-light); transition: var(--transition); display: flex; flex-direction: column; position: relative; }
         .deal-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--primary-dark); }
         
-        /* Highlight Badges */
-        .card-badge { position: absolute; top: 1rem; left: 1rem; background: var(--accent-yellow); color: var(--accent-yellow-text); padding: 0.4rem 0.8rem; border-radius: var(--radius-pill); font-size: 0.75rem; font-weight: 800; z-index: 10; box-shadow: var(--shadow-md); }
-        .wishlist-btn { position: absolute; top: 1rem; right: 1rem; width: 36px; height: 36px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-tertiary); z-index: 10; box-shadow: var(--shadow-md); }
-        .wishlist-btn:hover, .wishlist-btn.active { color: var(--primary-dark); }
+        .card-badge { position: absolute; top: 1rem; left: 1rem; background: var(--accent-yellow); color: var(--accent-yellow-text); padding: 0.4rem 0.8rem; border-radius: var(--radius-pill); font-size: 0.75rem; font-weight: 800; z-index: 10; }
+        .wishlist-btn { position: absolute; top: 1rem; right: 1rem; width: 36px; height: 36px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #94a3b8; box-shadow: var(--shadow-md); }
 
         .card-img-wrapper { width: 100%; height: 220px; padding: 1.5rem; display: flex; justify-content: center; border-bottom: 1px solid var(--border-light); }
         .card-img { max-width: 100%; max-height: 100%; object-fit: contain; }
         .card-content { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; }
-        
-        .platform-tag { color: var(--text-secondary); font-weight: 700; margin-bottom: 0.5rem; font-size: 0.8rem; letter-spacing: 0.5px; text-transform: uppercase; }
-        .product-title { margin-bottom: 1rem; font-size: 1.1rem; color: var(--text-primary); font-weight: 600; line-height: 1.4; }
-        
+        .platform-tag { color: var(--text-secondary); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; }
+        .product-title { margin-bottom: 1rem; font-size: 1.1rem; color: var(--text-primary); font-weight: 600; }
         .price-box { margin-top: auto; background: var(--bg-body); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
         .current-price { font-size: 1.5rem; font-weight: 800; color: var(--primary-dark); }
-        
-        .buy-btn { width: 100%; padding: 0.9rem; border-radius: 8px; background: var(--primary-dark); color: white; font-weight: 600; font-size: 1rem; text-align: center; }
-        .buy-btn:hover { background: var(--primary-hover); }
+        .buy-btn { width: 100%; padding: 0.9rem; border-radius: 8px; background: var(--primary-dark); color: white; font-weight: 600; text-align: center; }
 
-        /* Footer */
+        /* Skeleton Loading Bars */
+        .skeleton-grid { display: none; }
+        .sk-card { background: #eee; height: 400px; border-radius: 12px; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
+
         footer { background: var(--bg-surface); border-top: 1px solid var(--border-light); padding: 4rem 5% 2rem; margin-top: auto; }
         .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
-        .footer-links { display: flex; gap: 2rem; align-items: center; justify-content: flex-end; flex-wrap: wrap;}
-        .footer-link { color: var(--text-secondary); font-weight: 600; transition: var(--transition); cursor: pointer; }
-        .footer-link:hover { color: var(--primary-dark); }
-        
-        /* Modals */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.7); backdrop-filter: blur(4px); display: none; justify-content: center; align-items: center; z-index: 200; opacity: 0; transition: opacity 0.3s; }
-        .modal-overlay.active { display: flex; opacity: 1; }
-        .modal-box { background: var(--bg-surface); width: 90%; max-width: 600px; border-radius: var(--radius-lg); padding: 2.5rem; position: relative; transform: translateY(20px); transition: transform 0.3s; }
-        .modal-overlay.active .modal-box { transform: translateY(0); }
-        .modal-close { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 1.5rem; color: var(--text-secondary); }
-        .modal-close:hover { color: var(--primary-dark); }
+        .footer-links { display: flex; gap: 2rem; align-items: center; justify-content: flex-end; }
+        .footer-link { color: var(--text-secondary); font-weight: 600; }
+
+        .modal-overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.7); backdrop-filter: blur(4px); display: none; justify-content: center; align-items: center; z-index: 200; }
+        .modal-overlay.active { display: flex; }
+        .modal-box { background: var(--bg-surface); width: 90%; max-width: 600px; border-radius: var(--radius-lg); padding: 2.5rem; position: relative; }
+        .modal-close { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 1.5rem; }
     </style>
 </head>
 <body>
@@ -113,9 +98,9 @@
             <a href="brands.html" class="nav-link">Brands</a>
         </div>
         <div class="nav-right">
-            <button class="wishlist-btn-header" onclick="alert('Wishlist feature connected to backend.')">
+            <button class="wishlist-btn-header">
                 <i class="fa-regular fa-heart"></i>
-                <span class="wishlist-badge" id="headerWishlistCount">0</span>
+                <span class="wishlist-badge">0</span>
             </button>
         </div>
     </nav>
@@ -123,63 +108,47 @@
     <main>
         <section class="hero">
             <h1>Smarter Shopping Starts Here.</h1>
-            <p>Compare real-time prices across Amazon, Best Buy, Walmart, and more. Never overpay again.</p>
-            
+            <p>Compare real-time prices across Amazon, Best Buy, Walmart, and more.</p>
             <div class="search-container">
                 <div class="search-box">
                     <div class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
-                    <input type="text" class="search-input" id="searchInput" placeholder="Search for electronics, appliances, gadgets..." autocomplete="off">
-                    <button class="search-btn" id="searchBtn" onclick="executeSearch()">Find Deals</button>
+                    <input type="text" class="search-input" id="searchInput" placeholder="Search for items..." autocomplete="off">
+                    <button class="search-btn" onclick="executeSearch()">Find Deals</button>
                 </div>
                 <div class="dropdown" id="searchDropdown"></div>
             </div>
         </section>
 
         <section class="main-content">
-            <h2 class="section-title"><i class="fa-solid fa-fire" style="color:var(--accent-yellow);"></i> Top Selling Products</h2>
-            
-            <!-- Mock Data for Display (Replaced by Python Backend later) -->
-            <div class="deals-grid" id="topSellingGrid">
-                <!-- Card 1 -->
-                <div class="deal-card">
-                    <div class="card-badge">HOT DEAL</div>
-                    <button class="wishlist-btn"><i class="fa-solid fa-heart"></i></button>
-                    <div class="card-img-wrapper"><img src="https://dummyimage.com/400x400/f8fafc/1e3a8a.png?text=Sony+XM5" class="card-img" alt="Sony Headphones"></div>
-                    <div class="card-content">
-                        <div class="platform-tag">Amazon</div>
-                        <h3 class="product-title">Sony WH-1000XM5 Noise Canceling Headphones</h3>
-                        <div class="price-box">
-                            <span class="current-price">$328.00</span>
+            <!-- RESULTS CONTAINER (Hidden by default) -->
+            <div id="resultsContainer" style="display:none; margin-bottom: 4rem;">
+                <h2 class="section-title" id="resultsTitle">Search Results</h2>
+                <div class="deals-grid" id="dealsGrid"></div>
+            </div>
+
+            <!-- SKELETON LOADING -->
+            <div class="deals-grid skeleton-grid" id="skeletonGrid">
+                <div class="sk-card"></div><div class="sk-card"></div><div class="sk-card"></div>
+            </div>
+
+            <!-- EMPTY STATE -->
+            <div id="emptyState" style="display:none; text-align:center; padding: 3rem;">
+                <p>No live deals found. Try a different search.</p>
+            </div>
+
+            <!-- TOP SELLING (Hidden when searching) -->
+            <div id="topSellingSection">
+                <h2 class="section-title"><i class="fa-solid fa-fire" style="color:var(--accent-yellow);"></i> Top Selling Products</h2>
+                <div class="deals-grid">
+                    <div class="deal-card">
+                        <div class="card-badge">HOT DEAL</div>
+                        <div class="card-img-wrapper"><img src="https://dummyimage.com/400x400/f8fafc/1e3a8a.png?text=Sony+XM5" class="card-img"></div>
+                        <div class="card-content">
+                            <div class="platform-tag">Amazon</div>
+                            <h3 class="product-title">Sony WH-1000XM5 Headphones</h3>
+                            <div class="price-box"><span class="current-price">$328.00</span></div>
+                            <button class="buy-btn">View Deal</button>
                         </div>
-                        <button class="buy-btn">View Deal</button>
-                    </div>
-                </div>
-                <!-- Card 2 -->
-                <div class="deal-card">
-                    <div class="card-badge">PRICE DROP</div>
-                    <button class="wishlist-btn"><i class="fa-solid fa-heart"></i></button>
-                    <div class="card-img-wrapper"><img src="https://dummyimage.com/400x400/f8fafc/1e3a8a.png?text=MacBook+Air" class="card-img" alt="MacBook"></div>
-                    <div class="card-content">
-                        <div class="platform-tag">Best Buy</div>
-                        <h3 class="product-title">Apple MacBook Air M3 (256GB)</h3>
-                        <div class="price-box">
-                            <span class="current-price">$899.00</span>
-                        </div>
-                        <button class="buy-btn">View Deal</button>
-                    </div>
-                </div>
-                <!-- Card 3 -->
-                <div class="deal-card">
-                    <div class="card-badge">BEST SELLER</div>
-                    <button class="wishlist-btn"><i class="fa-solid fa-heart"></i></button>
-                    <div class="card-img-wrapper"><img src="https://dummyimage.com/400x400/f8fafc/1e3a8a.png?text=Ninja+Air+Fryer" class="card-img" alt="Ninja"></div>
-                    <div class="card-content">
-                        <div class="platform-tag">Walmart</div>
-                        <h3 class="product-title">Ninja 4QT Air Fryer</h3>
-                        <div class="price-box">
-                            <span class="current-price">$89.00</span>
-                        </div>
-                        <button class="buy-btn">View Deal</button>
                     </div>
                 </div>
             </div>
@@ -188,99 +157,100 @@
 
     <footer>
         <div class="footer-grid">
-            <div>
-                <div class="brand"><i class="fa-solid fa-plane-departure"></i> DealPilot</div>
-                <p style="margin-top:0.5rem; color:var(--text-secondary); font-size:0.9rem;">&copy; 2026 DealPilot Global. All rights reserved.</p>
-            </div>
+            <div class="brand"><i class="fa-solid fa-plane-departure"></i> DealPilot</div>
             <div class="footer-links">
                 <button class="footer-link" onclick="openModal('Policy')">Policy</button>
                 <button class="footer-link" onclick="openModal('Terms & Conditions')">Terms & Conditions</button>
                 <button class="footer-link" onclick="openModal('Affiliate Disclosure')">Affiliate Disclosure</button>
-                <button class="footer-link" onclick="openModal('Support / Contact')">Support / Contact</button>
             </div>
         </div>
     </footer>
 
-    <!-- Universal Unified Modal -->
     <div class="modal-overlay" id="legalModal">
         <div class="modal-box">
             <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
-            <h2 id="modalTitle" style="color:var(--primary-dark); margin-bottom:1.5rem; font-weight:800;"></h2>
-            <div id="modalContent" style="color:var(--text-secondary); line-height: 1.7;">
-                <!-- Content dynamically injected here based on selection -->
-            </div>
+            <h2 id="modalTitle"></h2>
+            <div id="modalContent"></div>
         </div>
     </div>
 
     <script>
-        // API Base URL (Change to your Render backend URL once deployed)
         const BACKEND_URL = "https://dealpilot-31p0.onrender.com/api";
-
-        // Autocomplete Logic
         const input = document.getElementById('searchInput');
         const dropdown = document.getElementById('searchDropdown');
-        let timeout = null;
 
-        input.addEventListener('input', (e) => {
-            clearTimeout(timeout);
+        // Autocomplete Logic
+        input.addEventListener('input', async (e) => {
             const val = e.target.value.trim();
-            
-            if(val.length < 2) {
-                dropdown.classList.remove('active');
-                return;
-            }
-
-            // Debounce to prevent spamming backend API
-            timeout = setTimeout(async () => {
-                try {
-                    // Fetch real suggestions from Python Backend
-                    const response = await fetch(`${BACKEND_URL}/autocomplete?q=${val}`);
-                    if(!response.ok) throw new Error("API Error");
-                    const data = await response.json();
-                    
-                    if(data.suggestions.length > 0) {
-                        dropdown.innerHTML = data.suggestions.map(m => `
-                            <div class="dropdown-item" onclick="executeSearch('${m}')">
-                                <i class="fa-solid fa-search" style="color:var(--text-tertiary);"></i>
-                                ${m}
-                            </div>`).join('');
-                        dropdown.classList.add('active');
-                    }
-                } catch (error) {
-                    console.error("Autocomplete failed:", error);
-                    // Fallback visual if backend is offline
-                    dropdown.innerHTML = `<div class="dropdown-item">Search for "${val}"...</div>`;
+            if(val.length < 2) { dropdown.classList.remove('active'); return; }
+            try {
+                const res = await fetch(`${BACKEND_URL}/autocomplete?q=${val}`);
+                const data = await res.json();
+                if(data.suggestions.length > 0) {
+                    dropdown.innerHTML = data.suggestions.map(m => `
+                        <div class="dropdown-item" onclick="executeSearch('${m}')">${m}</div>
+                    `).join('');
                     dropdown.classList.add('active');
                 }
-            }, 300);
+            } catch (e) { console.error(e); }
         });
 
-        function executeSearch(query) {
+        // LIVE FETCH LOGIC
+        async function executeSearch(query) {
             const searchTerm = query || input.value;
             if(!searchTerm) return;
+            
             dropdown.classList.remove('active');
             input.value = searchTerm;
-            // Redirect or trigger backend search load here
-            alert(`Backend fetch triggered for: ${searchTerm}`);
+            
+            document.getElementById('topSellingSection').style.display = 'none';
+            document.getElementById('resultsContainer').style.display = 'none';
+            document.getElementById('emptyState').style.display = 'none';
+            document.getElementById('skeletonGrid').style.display = 'grid';
+
+            try {
+                const response = await fetch(`${BACKEND_URL}/search?q=${encodeURIComponent(searchTerm)}`);
+                const result = await response.json();
+                const deals = result.data;
+
+                document.getElementById('skeletonGrid').style.display = 'none';
+
+                if (!deals || deals.length === 0) {
+                    document.getElementById('emptyState').style.display = 'block';
+                    return;
+                }
+
+                document.getElementById('dealsGrid').innerHTML = deals.map((d, idx) => `
+                    <div class="deal-card">
+                        <div class="card-badge">LIVE DEAL</div>
+                        <div class="card-img-wrapper">
+                            <img src="${d.image}" class="card-img" onerror="this.src='https://dummyimage.com/400x400/f8fafc/1e3a8a.png&text=Product'">
+                        </div>
+                        <div class="card-content">
+                            <div class="platform-tag">${d.platform}</div>
+                            <h3 class="product-title">${d.title}</h3>
+                            <div class="price-box"><span class="current-price">${d.price}</span></div>
+                            <a href="${d.url}" target="_blank" class="buy-btn">View Deal</a>
+                        </div>
+                    </div>
+                `).join('');
+
+                document.getElementById('resultsTitle').innerText = `Results for "${searchTerm}"`;
+                document.getElementById('resultsContainer').style.display = 'block';
+
+            } catch (error) {
+                document.getElementById('skeletonGrid').style.display = 'none';
+                alert("Backend waking up. Please try again in 30 seconds.");
+            }
         }
 
-        // Unified Footer Modal Logic
         const modalData = {
-            "Policy": "DealPilot respects your privacy. We do not collect personally identifiable information unless provided via contact forms. We securely manage data to provide the best comparison experience.",
-            "Terms & Conditions": "DealPilot acts strictly as a global shopping search utility. We aggregate prices but do not sell products, manage shipping, or process returns. Always verify details on the final merchant checkout.",
-            "Affiliate Disclosure": "DealPilot is part of various global affiliate programs (Amazon, Walmart, Best Buy, etc.). When you click links and make purchases, we may earn a commission at zero extra cost to you.",
-            "Support / Contact": "Need help? Found a bug? Want to partner with us?<br><br><div style='text-align:center; padding:1.5rem; background:var(--bg-body); border-radius:8px;'><a href='mailto:click@asimdc.in' style='font-size:1.2rem; font-weight:700; color:var(--primary-dark);'>click@asimdc.in</a></div>"
+            "Policy": "Privacy matters.",
+            "Terms & Conditions": "Terms apply.",
+            "Affiliate Disclosure": "We earn commission."
         };
-
-        function openModal(title) {
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalContent').innerHTML = modalData[title];
-            document.getElementById('legalModal').classList.add('active');
-        }
-
-        function closeModal() {
-            document.getElementById('legalModal').classList.remove('active');
-        }
+        function openModal(t) { document.getElementById('modalTitle').innerText = t; document.getElementById('modalContent').innerText = modalData[t]; document.getElementById('legalModal').classList.add('active'); }
+        function closeModal() { document.getElementById('legalModal').classList.remove('active'); }
     </script>
 </body>
 </html>
