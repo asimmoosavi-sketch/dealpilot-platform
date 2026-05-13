@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+slowapi
+beautifulsoup4
+httpx
+pydantic
+python-dotenv
