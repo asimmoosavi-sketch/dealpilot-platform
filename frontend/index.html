@@ -512,21 +512,62 @@
 
 
 
-        function executeSearch(query) {
+        async function executeSearch(query) {
+    const searchTerm = query || document.getElementById('searchInput').value;
+    if (!searchTerm) return;
 
-            const searchTerm = query || input.value;
+    // UI Preparation: Hide old results and show loading
+    const dropdown = document.getElementById('searchDropdown');
+    const resultsContainer = document.getElementById('resultsContainer');
+    const dealsGrid = document.getElementById('dealsGrid');
+    const skeleton = document.getElementById('skeletonGrid');
+    const emptyState = document.getElementById('emptyState');
 
-            if(!searchTerm) return;
+    dropdown.classList.remove('active');
+    if (resultsContainer) resultsContainer.style.display = 'none';
+    if (emptyState) emptyState.style.display = 'none';
+    if (skeleton) skeleton.style.display = 'grid'; 
 
-            dropdown.classList.remove('active');
+    try {
+        // Use your live Render backend URL
+        const response = await fetch(`${BACKEND_URL}/search?q=${encodeURIComponent(searchTerm)}`);
+        
+        if (!response.ok) throw new Error("Backend server is waking up.");
+        
+        const result = await response.json();
+        const deals = result.data;
 
-            input.value = searchTerm;
+        if (skeleton) skeleton.style.display = 'none';
 
-            // Redirect or trigger backend search load here
-
-            alert(`Backend fetch triggered for: ${searchTerm}`);
-
+        if (!deals || deals.length === 0) {
+            if (emptyState) emptyState.style.display = 'block';
+            return;
         }
+
+        // Render real deals into the grid
+        dealsGrid.innerHTML = deals.map((d, idx) => `
+            <div class="deal-card">
+                <div class="card-badge">${idx === 0 ? 'BEST MATCH' : 'DEAL'}</div>
+                <div class="card-img-wrapper">
+                    <img src="${d.image}" class="card-img" onerror="this.src='https://dummyimage.com/400x400/f8fafc/1e3a8a.png&text=Deal+Found'">
+                </div>
+                <div class="card-content">
+                    <div class="platform-tag">${d.platform}</div>
+                    <h3 class="product-title">${d.title}</h3>
+                    <div class="price-box"><span class="current-price">${d.price}</span></div>
+                    <a href="${d.url}" target="_blank" class="buy-btn">View Deal</a>
+                </div>
+            </div>
+        `).join('');
+
+        if (resultsContainer) resultsContainer.style.display = 'block';
+
+    } catch (error) {
+        console.error("Search failed:", error);
+        if (skeleton) skeleton.style.display = 'none';
+        alert("The backend is waking up (Free Tier takes 30-60 seconds). Please try again shortly.");
+    }
+}
 
 
 
